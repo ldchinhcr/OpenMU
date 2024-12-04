@@ -9,11 +9,11 @@
     {
         @if (this._isCollapsed)
         {
-        <button type="button" class="btn-outline-info" @onclick="@this.OnToggleCollapseClick">Expand (@(this.Value?.Count) Items)</button>
+        <button type="button" class="btn-outline-info" @onclick="@this.OnToggleCollapseClick">Mở rộng (@(this.Value?.Count) mục)</button>
         }
         else
         {
-        <button type="button" class="btn-outline-info" @onclick="@this.OnToggleCollapseClick">Collapse</button>
+        <button type="button" class="btn-outline-info" @onclick="@this.OnToggleCollapseClick">Thu gọn</button>
         }
     }
     </h5>
@@ -36,7 +36,7 @@
                                 </EditForm>
                             </td>
                             <td>
-                                <button type="button" class="btn-danger" @onclick="@(() => OnRemoveClickAsync(index))">Remove</button>
+                                <button type="button" class="btn-danger" @onclick="@(() => OnRemoveClickAsync(index))">Xóa</button>
                             </td>
                         </tr>
                     }
@@ -45,7 +45,7 @@
                 <tfooter>
                     <tr>
                         <td colspan="2">
-                            <button type="button" class="btn-primary" @onclick="@OnAddClickAsync">Add Value</button>
+                            <button type="button" class="btn-primary" @onclick="@OnAddClickAsync">Thêm giá trị</button>
                         </td>
                     </tr>
                 </tfooter>

@@ -19,7 +19,7 @@ using MUnique.OpenMU.Web.AdminPanel;
 using MUnique.OpenMU.Web.AdminPanel.Services;
 
 /// <summary>
-/// Abstract common base class for an edit page.
+/// Lớp cơ sở trừu tượng chung cho một trang chỉnh sửa.
 /// </summary>
 public abstract class EditBase : ComponentBase, IAsyncDisposable
 {
@@ -51,71 +51,71 @@ public abstract class EditBase : ComponentBase, IAsyncDisposable
     }
 
     /// <summary>
-    /// Gets or sets the identifier of the object which should be edited.
+    /// Lấy hoặc thiết lập định danh của đối tượng mà nên được chỉnh sửa.
     /// </summary>
     [Parameter]
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="Type.FullName"/> of the object which should be edited.
+    /// Lấy hoặc thiết lập <see cref="Type.FullName"/> của đối tượng mà nên được chỉnh sửa.
     /// </summary>
     [Parameter]
     public string TypeString { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the persistence context provider which loads and saves the object.
+    /// Lấy hoặc thiết lập nhà cung cấp ngữ cảnh lưu trữ mà tải và lưu đối tượng.
     /// </summary>
     [Inject]
     public IPersistenceContextProvider PersistenceContextProvider { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the modal service.
+    /// Lấy hoặc thiết lập dịch vụ modal.
     /// </summary>
     [Inject]
     public IModalService ModalService { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the toast service.
+    /// Lấy hoặc thiết lập dịch vụ thông báo.
     /// </summary>
     [Inject]
     public IToastService ToastService { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the configuration data source.
+    /// Lấy hoặc thiết lập nguồn dữ liệu cấu hình.
     /// </summary>
     [Inject]
     public IDataSource<GameConfiguration> ConfigDataSource { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the navigation manager.
+    /// Lấy hoặc thiết lập quản lý điều hướng.
     /// </summary>
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the java script runtime.
+    /// Lấy hoặc thiết lập runtime java script.
     /// </summary>
     [Inject]
     public IJSRuntime JavaScript { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the logger.
+    /// Lấy hoặc thiết lập logger.
     /// </summary>
     [Inject]
     public ILogger<EditBase>? Logger { get; set; }
 
     /// <summary>
-    /// Gets the data source of the type which is edited.
+    /// Lấy nguồn dữ liệu của loại mà đang được chỉnh sửa.
     /// </summary>
     protected virtual IDataSource EditDataSource => this.ConfigDataSource;
 
     /// <summary>
-    /// Gets the model which should be edited.
+    /// Lấy mô hình mà nên được chỉnh sửa.
     /// </summary>
     protected object? Model => this._model;
 
     /// <summary>
-    /// Gets the type.
+    /// Lấy loại.
     /// </summary>
     protected virtual Type? Type => this._type ??= this.DetermineTypeByTypeString();
 
@@ -172,7 +172,7 @@ public abstract class EditBase : ComponentBase, IAsyncDisposable
 
         var downloadMarkup = this.GetDownloadMarkup();
         var editorsMarkup = this.GetEditorsMarkup();
-        builder.AddMarkupContent(0, $"<h1>Edit {CaptionHelper.GetTypeCaption(this.Type!)}</h1>{downloadMarkup}{editorsMarkup}\r\n");
+        builder.AddMarkupContent(0, $"<h1>Chỉnh sửa {CaptionHelper.GetTypeCaption(this.Type!)}</h1>{downloadMarkup}{editorsMarkup}\r\n");
         builder.OpenComponent<CascadingValue<IContext>>(1);
         builder.AddAttribute(2, nameof(CascadingValue<IContext>.Value), this._persistenceContext);
         builder.AddAttribute(3, nameof(CascadingValue<IContext>.IsFixed), this._isOwningContext);
@@ -193,10 +193,10 @@ public abstract class EditBase : ComponentBase, IAsyncDisposable
     }
 
     /// <summary>
-    /// Adds the form to the render tree.
+    /// Thêm biểu mẫu vào cây render.
     /// </summary>
-    /// <param name="builder">The builder.</param>
-    /// <param name="currentSequence">The current sequence.</param>
+    /// <param name="builder">Trình xây dựng.</param>
+    /// <param name="currentSequence">Chuỗi hiện tại.</param>
     protected abstract void AddFormToRenderTree(RenderTreeBuilder builder, ref int currentSequence);
     
     /// <inheritdoc />
@@ -226,7 +226,7 @@ public abstract class EditBase : ComponentBase, IAsyncDisposable
     }
 
     /// <summary>
-    /// Saves the changes.
+    /// Lưu các thay đổi.
     /// </summary>
     protected async Task SaveChangesAsync()
     {
@@ -235,35 +235,35 @@ public abstract class EditBase : ComponentBase, IAsyncDisposable
             if (this._persistenceContext is { } context)
             {
                 var success = await context.SaveChangesAsync().ConfigureAwait(true);
-                var text = success ? "The changes have been saved." : "There were no changes to save.";
+                var text = success ? "Các thay đổi đã được lưu." : "Không có thay đổi nào để lưu.";
                 this.ToastService.ShowSuccess(text);
             }
             else
             {
-                this.ToastService.ShowError("Failed, context not initialized");
+                this.ToastService.ShowError("Thất bại, ngữ cảnh chưa được khởi tạo");
             }
         }
         catch (Exception ex)
         {
-            this.Logger?.LogError(ex, $"Error during saving {this.Id}");
-            var text = $"An unexpected error occured: {ex.Message}.";
+            this.Logger?.LogError(ex, $"Lỗi trong quá trình lưu {this.Id}");
+            var text = $"Đã xảy ra lỗi không mong muốn: {ex.Message}.";
             this.ToastService.ShowError(text);
         }
     }
 
     /// <summary>
-    /// Gets the optional editors markup for the current type.
+    /// Lấy mã HTML cho các trình chỉnh sửa tùy chọn cho loại hiện tại.
     /// </summary>
-    /// <returns>The optional editors markup for the current type.</returns>
+    /// <returns>Mã HTML cho các trình chỉnh sửa tùy chọn cho loại hiện tại.</returns>
     protected virtual string? GetEditorsMarkup()
     {
         return null;
     }
 
     /// <summary>
-    /// It loads the owner of the <see cref="EditDataSource" />.
+    /// Tải chủ sở hữu của <see cref="EditDataSource" />.
     /// </summary>
-    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <param name="cancellationToken">Mã hủy.</param>
     protected virtual async ValueTask LoadOwnerAsync(CancellationToken cancellationToken)
     {
         await this.EditDataSource.GetOwnerAsync(Guid.Empty, cancellationToken).ConfigureAwait(true);
@@ -274,7 +274,7 @@ public abstract class EditBase : ComponentBase, IAsyncDisposable
         if (this._persistenceContext?.HasChanges is true)
         {
             var isConfirmed = await this.JavaScript.InvokeAsync<bool>("window.confirm",
-                    "There are unsaved changes. Are you sure you want to discard them?")
+                    "Có thay đổi chưa được lưu. Bạn có chắc chắn muốn bỏ qua chúng không?")
                 .ConfigureAwait(true);
 
             if (!isConfirmed)
@@ -298,7 +298,7 @@ public abstract class EditBase : ComponentBase, IAsyncDisposable
         if (this.Type is not null && GenericControllerFeatureProvider.SupportedTypes.Any(t => t.Item1 == this.Type))
         {
             var uri = $"/download/{this.Type.Name}/{this.Type.Name}_{this.Id}.json";
-            return $"<p>Download as json: <a href=\"{uri}\" download><span class=\"oi oi-data-transfer-download\"></span></a></p>";
+            return $"<p>Tải xuống dưới dạng json: <a href=\"{uri}\" download><span class=\"oi oi-data-transfer-download\"></span></a></p>";
         }
 
         return null;
@@ -317,7 +317,7 @@ public abstract class EditBase : ComponentBase, IAsyncDisposable
             cancellationToken.ThrowIfCancellationRequested();
             if (this.Type is null)
             {
-                throw new InvalidOperationException($"Only types of namespace {nameof(MUnique)} can be edited on this page.");
+                throw new InvalidOperationException($"Chỉ các loại trong namespace {nameof(MUnique)} có thể được chỉnh sửa trên trang này.");
             }
 
             await this.LoadOwnerAsync(cancellationToken).ConfigureAwait(true);
@@ -364,8 +364,8 @@ public abstract class EditBase : ComponentBase, IAsyncDisposable
             catch (Exception ex)
             {
                 this._loadingState = DataLoadingState.Error;
-                this.Logger?.LogError(ex, $"Could not load {this.Type.FullName} with {this.Id}: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
-                await this.InvokeAsync(() => this.ModalService.ShowMessageAsync("Error", "Could not load the data. Check the logs for details.")).ConfigureAwait(false);
+                this.Logger?.LogError(ex, $"Không thể tải {this.Type.FullName} với {this.Id}: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
+                await this.InvokeAsync(() => this.ModalService.ShowMessageAsync("Lỗi", "Không thể tải dữ liệu. Kiểm tra nhật ký (logs) để biết chi tiết.")).ConfigureAwait(false);
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -381,13 +381,13 @@ public abstract class EditBase : ComponentBase, IAsyncDisposable
         }
         catch (ObjectDisposedException)
         {
-            // Happens when the user navigated away (shouldn't happen with the modal loading indicator, but we check it anyway).
-            // It would be great to have an async api with cancellation token support in the persistence layer
-            // For the moment, we swallow the exception
+            // Xảy ra khi người dùng điều hướng đi (không nên xảy ra với chỉ báo tải modal, nhưng chúng tôi kiểm tra nó để đảm bảo).
+            // Sẽ thật tuyệt nếu có một api async với hỗ trợ mã hủy trong lớp lưu trữ
+            // Hiện tại, chúng tôi sẽ bỏ qua ngoại lệ
         }
         catch (Exception ex)
         {
-            this.Logger?.LogError(ex, "Unexpected error when loading data: {ex}", ex);
+            this.Logger?.LogError(ex, "Lỗi không mong đợi khi tải dữ liệu: {ex}", ex);
         }
     }
 }

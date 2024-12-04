@@ -9,8 +9,8 @@
 <div>
     <table>
         <thead>
-        <th class="col-10">Login Name</th>
-        <th class="col-1">Actions</th>
+        <th class="col-10">Tên đăng nhập</th>
+        <th class="col-1">Hành động</th>
         <th class="col-1"></th>
         </thead>
         <tbody>
@@ -20,12 +20,12 @@
             <tr>
                 <td>@user</td>
                 <td>
-                    <button type="button" class="btn btn-sm btn-primary" @onclick="async () => await this.UserService.ChangePasswordInModalDialogAsync(user)">Change password</button>
+                    <button type="button" class="btn btn-sm btn-primary" @onclick="async () => await this.UserService.ChangePasswordInModalDialogAsync(user)">Thay đổi mật khẩu</button>
                 </td>
                 <td>
                     @if (users.Count > 1)
                     {
-                        <button type="button" class="btn btn-sm btn-danger" @onclick="async () => await this.UserService.DeleteUserAsync(user)">Delete</button>
+                        <button type="button" class="btn btn-sm btn-danger" @onclick="async () => await this.UserService.DeleteUserAsync(user)">Xoá</button>
                     }
                 </td>
             </tr>
@@ -33,7 +33,7 @@
         </tbody>
         
         <tfoot>
-            <td><button type="button" class="btn btn-sm btn-success" @onclick="@this.UserService.CreateNewInModalDialogAsync">Create User</button></td>
+            <td><button type="button" class="btn btn-sm btn-success" @onclick="@this.UserService.CreateNewInModalDialogAsync">Tạo user mới</button></td>
             <td></td>
             <td></td>
         </tfoot>

@@ -11,8 +11,8 @@
 @code {
 
     /// <summary>
-    /// Gets or sets the label which should be displayed. If it's not explicitly provided, the component shows the
-    /// Name defined in the <see cref="DisplayAttribute"/>. If there is no Name in a <see cref="DisplayAttribute"/>, it shows the property name instead.
+    /// Lấy hoặc thiết lập nhãn sẽ được hiển thị. Nếu không được cung cấp rõ ràng, thành phần sẽ hiển thị
+    /// Tên được định nghĩa trong <see cref="DisplayAttribute"/>. Nếu không có Tên trong <see cref="DisplayAttribute"/>, nó sẽ hiển thị tên thuộc tính thay vào đó.
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
@@ -26,7 +26,7 @@
             return true;
         }
 
-        validationErrorMessage = "Wrong Format";
+        validationErrorMessage = "Sai định dạng";
         return false;
     }
 }

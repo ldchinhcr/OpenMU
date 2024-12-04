@@ -51,9 +51,9 @@
         @if (this._viewModel.AncientBonus is { } ancientBonus)
         {
             <div>
-                <label for="ancientBonusLevel">Ancient Option Level: </label>
+                <label for="ancientBonusLevel">Cấp độ Ancient tùy chọn: </label>
                 <InputNumber id="ancientBonusLevel" min="1" max="2" @bind-Value="@ancientBonus.Level" />
-                <span>Bonus: @ancientBonus</span>
+                <span>Ancient Thưởng: @ancientBonus</span>
             </div>
         }
     }
@@ -129,7 +129,7 @@
                 {
                     @if ((optionLink.ItemOption.LevelDependentOptions.FirstOrDefault(ldo => ldo.Level == level)?.PowerUpDefinition
                           ?? optionLink.ItemOption.PowerUpDefinition) is { } powerUp
-                         && $"+{powerUp.Boost?.ConstantValue.Value} {powerUp.TargetAttribute} (Level {level})" is { } caption)
+                         && $"+{powerUp.Boost?.ConstantValue.Value} {powerUp.TargetAttribute} (Cấp {level})" is { } caption)
                     {
                         @if (level == optionLink.Level)
                         {
@@ -164,7 +164,7 @@
                 <NumberField
                     Min="1"
                     Max="@socketOption.Option.LevelDependentOptions.Max(o => o.Level)"
-                    Label="Option Level:" @bind-Value="socket.Level" />
+                    Label="Cấp độ tùy chọn:" @bind-Value="socket.Level" />
             }
             else
             {
@@ -193,19 +193,19 @@
     
     @if (this._viewModel.PossibleGuardianOption is { })
     {
-        <BooleanField Label="Has Guardian Option (Level 380 PvP)" @bind-Value="@this._viewModel.HasGuardianOption" />
+        <BooleanField Label="Có tùy chọn Guardian (Cấp 380 PvP)" @bind-Value="@this._viewModel.HasGuardianOption" />
     }
 
     <ValidationSummary />
     <div>
         @if (this.OnValidSubmit.HasDelegate)
         {
-            <button type="submit" class="primary-button">Save</button>
+            <button type="submit" class="primary-button">Lưu</button>
         }
 
         @if (this.OnCancel.HasDelegate)
         {
-            <button type="button" class="cancel-button" @onclick=@this.OnCancel>Cancel</button>
+            <button type="button" class="cancel-button" @onclick=@this.OnCancel>Hủy</button>
         }
     </div>
 </EditForm>

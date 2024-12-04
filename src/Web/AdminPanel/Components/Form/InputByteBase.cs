@@ -9,25 +9,25 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 
 /// <summary>
-/// An input component for editing numeric byte values.
+/// Một thành phần đầu vào để chỉnh sửa các giá trị byte số.
 /// </summary>
-/// <typeparam name="TByte">The type of the byte.</typeparam>
+/// <typeparam name="TByte">Loại của byte.</typeparam>
 public abstract class InputByteBase<TByte> : InputBase<TByte>
 {
     /// <summary>
-    /// Gets or sets the error message used when displaying an a parsing error.
+    /// Lấy hoặc thiết lập thông báo lỗi được sử dụng khi hiển thị lỗi phân tích cú pháp.
     /// </summary>
     [Parameter]
-    public string ParsingErrorMessage { get; set; } = "The {0} field must be a number between 0 and 255.";
+    public string ParsingErrorMessage { get; set; } = "Trường {0} phải là một số trong khoảng từ 0 đến 255.";
 
     /// <summary>
-    /// Gets or sets the minimum value.
+    /// Lấy hoặc thiết lập giá trị tối thiểu.
     /// </summary>
     [Parameter]
     public byte Min { get; set; } = byte.MinValue;
 
     /// <summary>
-    /// Gets or sets the maximum value.
+    /// Lấy hoặc thiết lập giá trị tối đa.
     /// </summary>
     [Parameter]
     public byte Max { get; set; } = byte.MaxValue;

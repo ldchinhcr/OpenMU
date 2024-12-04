@@ -9,11 +9,11 @@
             @if (this._isLoading)
             {
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only">Đang tải...</span>
             }
             else
             {
-                <span>Page @this.Page</span>
+                <span>Trang @this.Page</span>
             }
         </button>
         <Button disabled="@(!this._hasMoreEntries || this._isLoading)" class="btn btn-sm btn-primary" @onclick=@this.GetNextPageAsync><span class="oi oi-arrow-thick-right" aria-hidden="true" /></Button>
@@ -38,7 +38,7 @@
         }
         else if (this._isLoading)
         {
-            <tr>Loading ...</tr>
+            <tr>Đang tải ...</tr>
         }
     </tbody>
     <tfoot>

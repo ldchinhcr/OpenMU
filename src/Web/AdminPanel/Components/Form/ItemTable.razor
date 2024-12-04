@@ -14,11 +14,11 @@
         {
             @if (this._isCollapsed)
             {
-                <button type="button" class="btn-outline-info ml-3" @onclick="@this.OnToggleCollapseClick">Expand (@(this.Value?.Count) Items)</button>
+                <button type="button" class="btn-outline-info ml-3" @onclick="@this.OnToggleCollapseClick">Mở rộng (@(this.Value?.Count) Mục)</button>
             }
             else
             {
-                <button type="button" class="btn-outline-info ml-3" @onclick="@this.OnToggleCollapseClick">Collapse</button>
+                <button type="button" class="btn-outline-info ml-3" @onclick="@this.OnToggleCollapseClick">Thu gọn</button>
             }
         }
         </h5>
@@ -56,13 +56,13 @@
                                         urlPrefix = "edit-account";                                        
                                     }
 
-                                    <button type="button" class="btn-info" @onclick="@(() => this._navigationManager.NavigateTo($"{urlPrefix}/{typeof(TItem).FullName}/{item.Id}"))">Edit</button>
+                                    <button type="button" class="btn-info" @onclick="@(() => this._navigationManager.NavigateTo($"{urlPrefix}/{typeof(TItem).FullName}/{item.Id}"))">Chỉnh sửa</button>
                                 }
                             </td>
                             <td>
                                 @if (this._isEditable)
                                 {
-                                    <button type="button" class="btn-danger" @onclick="@(() => OnRemoveClickAsync(item.Item))">Remove</button>
+                                    <button type="button" class="btn-danger" @onclick="@(() => OnRemoveClickAsync(item.Item))">Xóa</button>
                                 }
                             </td>
                         </tr>
@@ -73,12 +73,12 @@
                             <td colspan="3">
                                 @if (this._isAddingSupported)
                                 {
-                                    <button type="button" class="btn-primary" @onclick="@OnAddClickAsync">Add</button>
+                                    <button type="button" class="btn-primary" @onclick="@OnAddClickAsync">Thêm</button>
                                 }
 
                                 @if (this._isCreatingSupported)
                                 {
-                                    <button type="button" class="btn-primary" @onclick="@OnCreateClickAsync">Create</button>
+                                    <button type="button" class="btn-primary" @onclick="@OnCreateClickAsync">Tạo</button>
                                 }
                             </td>
                         </tr>

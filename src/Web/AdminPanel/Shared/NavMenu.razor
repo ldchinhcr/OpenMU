@@ -9,14 +9,14 @@
         </button>
     </div>
 
-    <!-- Hiding it programmatically is not a good idea here, because we want to hide it based on the width of the device/window. -->
+    <!-- Việc ẩn nó theo cách lập trình không phải là một ý tưởng tốt ở đây, vì chúng tôi muốn ẩn nó dựa trên chiều rộng của thiết bị/cửa sổ. -->
     <div class="@NavMenuCssClass">
         <ul>
             @if (this._isLoadingConfig)
             {
                 <li>
                     <NavLink href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-clock" aria-hidden="true"></span> Loading ...
+                        <span class="oi oi-clock" aria-hidden="true"></span> Đang tải ...
                     </NavLink>
                 </li>
             }
@@ -24,7 +24,7 @@
             {
                 <li>
                     <NavLink href="setup">
-                        <span class="oi oi-cog" aria-hidden="true"></span> Setup
+                        <span class="oi oi-cog" aria-hidden="true"></span> Cài đặt
                     </NavLink>
                 </li>
             }
@@ -32,22 +32,22 @@
             {
                 <li>
                     <NavLink href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                        <span class="oi oi-home" aria-hidden="true"></span> Trang chủ
                     </NavLink>
                 </li>
                 <li>
                     <NavLink href="servers">
-                        <span class="oi oi-project" aria-hidden="true"></span> Servers
+                        <span class="oi oi-project" aria-hidden="true"></span> Máy chủ
                     </NavLink>
                 </li>
                 <li>
                   <NavLink href="accounts">
-                    <span class="oi oi-list" aria-hidden="true"></span> Accounts
+                    <span class="oi oi-list" aria-hidden="true"></span> Tài khoản
                   </NavLink>
                 </li>
                 <li>
                   <NavLink href="logged-in">
-                    <span class="oi oi-people" aria-hidden="true" /> Online Accounts
+                    <span class="oi oi-people" aria-hidden="true" /> Tài khoản trực tuyến
                   </NavLink>
                 </li>
                 @if (this.GameConfigurationId is { } gameConfigurationId )
@@ -56,16 +56,16 @@
                 }
                 <li>
                     <NavLink href="setup">
-                        <span class="oi oi-cog" aria-hidden="true"></span> Setup
+                        <span class="oi oi-cog" aria-hidden="true"></span> Cài đặt
                     </NavLink>
                 </li>
                 <li>
                     <NavLink href="config-updates">
-                        <span class="oi oi-medical-cross" aria-hidden="true"></span> Updates
+                        <span class="oi oi-medical-cross" aria-hidden="true"></span> Cập nhật
                         @if (this._availableConfigUpdates > 0)
                         {
                             <span class="badge badge-light ml-2">@this._availableConfigUpdates</span>
-                            <span class="sr-only">available updates</span>
+                            <span class="sr-only">Cập nhật có sẵn</span>
                         }
                     </NavLink>
                 </li>
@@ -74,7 +74,7 @@
             {
                 <li>
                     <NavLink href="users">
-                        <span class="oi oi-key" aria-hidden="true"></span> Users
+                        <span class="oi oi-key" aria-hidden="true"></span> Người dùng
                     </NavLink>
                 </li>
             }
@@ -82,7 +82,7 @@
             {
                 <li>
                     <NavLink href="logfiles">
-                        <span class="oi oi-list" aria-hidden="true"></span> Log Files
+                        <span class="oi oi-list" aria-hidden="true"></span> Tệp nhật ký
                     </NavLink>
                 </li>
             }
@@ -91,19 +91,19 @@
                 <li>
                     <a href="/grafana/explore?orgId=1&left=%7B%22datasource%22:%22Loki%22,%22queries%22:%5B%7B%22refId%22:%22A%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D"
                        target="_blank">
-                        <span class="oi oi-list" aria-hidden="true"></span> Log
+                        <span class="oi oi-list" aria-hidden="true"></span> Nhật ký
                     </a>
                 </li>
                 <li>
                     <a href="/grafana/dashboards"
                        target="_blank">
-                        <span class="oi oi-bar-chart" aria-hidden="true"></span> Metrics
+                        <span class="oi oi-bar-chart" aria-hidden="true"></span> Thống kê
                     </a>
                 </li>
                 <li>
                     <a href="/zipkin/"
                        target="_blank">
-                        <span class="oi oi-fork" aria-hidden="true"></span> Tracing
+                        <span class="oi oi-fork" aria-hidden="true"></span> Theo dõi
                     </a>
                 </li>
             }

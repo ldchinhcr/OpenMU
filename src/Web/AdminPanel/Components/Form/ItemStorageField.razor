@@ -54,7 +54,7 @@
                 }
                 @if (this._storageType == StorageType.Inventory)
                 {
-                    <div class="extension-header">Personal Store</div>
+                    <div class="extension-header">Cửa hàng cá nhân</div>
                     <MuItemStorage
                         @bind-Value="@CurrentValue"
                         StorageType="StorageType.PersonalStore"
@@ -64,21 +64,21 @@
                 }
             </div>
             <div class="col-1 middle-column">
-                <button type="button" class="btn-info mb-1" @onclick="@this.OnCreateItemClickAsync" title="Create"><span class="oi oi-plus"></span></button>
+                <button type="button" class="btn-info mb-1" @onclick="@this.OnCreateItemClickAsync" title="Tạo"><span class="oi oi-plus"></span></button>
                 @if (this._selectedItem is null)
                 {
-                    <button type="button" class="btn-warning mb-1 disabled" title="Delete"><span class="oi oi-trash"></span></button>
+                    <button type="button" class="btn-warning mb-1 disabled" title="Xóa"><span class="oi oi-trash"></span></button>
                 }
                 else
                 {
-                    <button type="button" class="btn-warning mb-1" @onclick="this.OnItemDeleteClickAsync" title="Delete"><span class="oi oi-trash"></span></button>
+                    <button type="button" class="btn-warning mb-1" @onclick="this.OnItemDeleteClickAsync" title="Xóa"><span class="oi oi-trash"></span></button>
                 }
             </div>
             <div class="col-7 right-column">
                 @if (this._selectedItem is { })
                 {
                     <div class="alert alert-secondary item-edit">
-                        <h3>@(this._selectedItem.Definition?.Name ?? @"<Please select a definition>")</h3>
+                        <h3>@(this._selectedItem.Definition?.Name ?? @"<Vui lòng chọn một định nghĩa>")</h3>
                         <ItemEdit Item="@this._selectedItem" ItemChanged="this.StateHasChanged"></ItemEdit>
                     </div>
                 }
@@ -140,7 +140,7 @@
                 this._numberOfExtensions = 0;
                 break;
             default:
-                throw new NotImplementedException($"Unknown owner ({model}) of storage.");
+                throw new NotImplementedException($"Chủ sở hữu không xác định ({model}) của kho thùng đồ.");
         }
     }
 

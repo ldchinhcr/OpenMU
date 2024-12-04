@@ -6,14 +6,14 @@
 
 <tr class="info">
     <td colspan="5">
-        <span>Total Players: @this.GetPlayerCount()</span>
+        <span>Tổng số người chơi: @this.GetPlayerCount()</span>
     </td>
 </tr>
 
 @code {
 
     /// <summary>
-    /// Gets or sets the servers.
+    /// Lấy hoặc thiết lập các máy chủ.
     /// </summary>
     [Parameter]
     public IList<IManageableServer> Servers { get; set; } = null!;
@@ -46,7 +46,7 @@
         }
         catch
         {
-            // must be catched because it's an async void method.
+            // phải được bắt vì đây là phương thức async void.
         }
         
     }

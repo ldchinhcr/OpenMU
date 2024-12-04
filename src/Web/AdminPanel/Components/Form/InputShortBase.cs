@@ -10,16 +10,16 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 
 /// <summary>
-/// An input component for editing numeric short values.
+/// Một thành phần nhập liệu để chỉnh sửa các giá trị số ngắn.
 /// </summary>
-/// <typeparam name="TShort">The type of the short.</typeparam>
+/// <typeparam name="TShort">Loại của số ngắn.</typeparam>
 public abstract class InputShortBase<TShort> : InputBase<TShort>
 {
     /// <summary>
-    /// Gets or sets the error message used when displaying an a parsing error.
+    /// Lấy hoặc thiết lập thông báo lỗi được sử dụng khi hiển thị lỗi phân tích cú pháp.
     /// </summary>
     [Parameter]
-    public string ParsingErrorMessage { get; set; } = $"The {0} field must be a number between {short.MinValue} and {short.MaxValue}.";
+    public string ParsingErrorMessage { get; set; } = $"Trường {0} phải là một số trong khoảng từ {short.MinValue} đến {short.MaxValue}.";
 
     /// <inheritdoc />
     protected override void BuildRenderTree(RenderTreeBuilder builder)

@@ -18,7 +18,7 @@ using MUnique.OpenMU.Persistence;
 using MUnique.OpenMU.Web.AdminPanel.Components.Form;
 
 /// <summary>
-/// Razor page which shows objects of the specified type in a grid.
+/// Trang Razor hiển thị các đối tượng của loại đã chỉ định trong một lưới.
 /// </summary>
 public partial class EditConfigGrid : ComponentBase, IAsyncDisposable
 {
@@ -30,49 +30,49 @@ public partial class EditConfigGrid : ComponentBase, IAsyncDisposable
     private List<ViewModel>? _viewModels;
 
     /// <summary>
-    /// Gets or sets the <see cref="Type.FullName"/> of the object which should be edited.
+    /// Lấy hoặc thiết lập <see cref="Type.FullName"/> của đối tượng mà nên được chỉnh sửa.
     /// </summary>
     [Parameter]
     public string TypeString { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the data source.
+    /// Lấy hoặc thiết lập nguồn dữ liệu.
     /// </summary>
     [Inject]
     public IDataSource<GameConfiguration> DataSource { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the navigation manager.
+    /// Lấy hoặc thiết lập trình quản lý điều hướng.
     /// </summary>
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the persistence context provider which loads and saves the object.
+    /// Lấy hoặc thiết lập nhà cung cấp ngữ cảnh lưu trữ, người sẽ tải và lưu đối tượng.
     /// </summary>
     [Inject]
     public IPersistenceContextProvider PersistenceContextProvider { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the modal service.
+    /// Lấy hoặc thiết lập dịch vụ modal.
     /// </summary>
     [Inject]
     public IModalService ModalService { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the toast service.
+    /// Lấy hoặc thiết lập dịch vụ thông báo.
     /// </summary>
     [Inject]
     public IToastService ToastService { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the logger.
+    /// Lấy hoặc thiết lập logger.
     /// </summary>
     [Inject]
     public ILogger<EditConfigGrid> Logger { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the type.
+    /// Lấy hoặc thiết lập loại.
     /// </summary>
     private Type? Type { get; set; }
 
@@ -106,11 +106,11 @@ public partial class EditConfigGrid : ComponentBase, IAsyncDisposable
         }
         catch (OperationCanceledException)
         {
-            // we can ignore that ...
+            // chúng ta có thể bỏ qua điều đó ...
         }
         catch
         {
-            // and we should not throw exceptions in the dispose method ...
+            // và chúng ta không nên ném ngoại lệ trong phương thức dispose ...
         }
     }
 
@@ -130,7 +130,7 @@ public partial class EditConfigGrid : ComponentBase, IAsyncDisposable
         cancellationToken.ThrowIfCancellationRequested();
         if (this.Type is null)
         {
-            throw new InvalidOperationException($"Only types of namespace {nameof(MUnique)} can be edited on this page.");
+            throw new InvalidOperationException($"Chỉ các loại trong không gian tên {nameof(MUnique)} có thể được chỉnh sửa trên trang này.");
         }
 
         IEnumerable data;
@@ -169,7 +169,7 @@ public partial class EditConfigGrid : ComponentBase, IAsyncDisposable
     {
         try
         {
-            var dialogResult = await this.ModalService.ShowQuestionAsync("Are you sure?", $"You're about to delete '{viewModel.Name}. Are you sure?");
+            var dialogResult = await this.ModalService.ShowQuestionAsync("Bạn có chắc chắn không?", $"Bạn sắp xóa '{viewModel.Name}'. Bạn có chắc chắn không?");
             if (!dialogResult)
             {
                 return;
@@ -181,14 +181,14 @@ public partial class EditConfigGrid : ComponentBase, IAsyncDisposable
             deleteContext.Attach(viewModel.Parent);
             await deleteContext.DeleteAsync(viewModel.Parent).ConfigureAwait(false);
             await deleteContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            this.ToastService.ShowSuccess($"Deleted '{viewModel.Name}' successfully.");
+            this.ToastService.ShowSuccess($"Đã xóa '{viewModel.Name}' thành công.");
             this._viewModels = null;
             this._loadTask = Task.Run(() => this.LoadDataAsync(cancellationToken), cancellationToken);
         }
         catch (Exception ex)
         {
-            this.Logger.LogError(ex, $"Couldn't delete '{viewModel.Name}', probably because it's referenced by another object.");
-            this.ToastService.ShowError($"Couldn't delete '{viewModel.Name}', probably because it's referenced by another object. For details, see log");
+            this.Logger.LogError(ex, $"Không thể xóa '{viewModel.Name}', có thể vì nó được tham chiếu bởi một đối tượng khác.");
+            this.ToastService.ShowError($"Không thể xóa '{viewModel.Name}', có thể vì nó được tham chiếu bởi một đối tượng khác. Để biết thêm chi tiết, xem nhật ký");
         }
     }
 
@@ -207,29 +207,29 @@ public partial class EditConfigGrid : ComponentBase, IAsyncDisposable
             DisableBackgroundCancel = true,
         };
 
-        var modal = this.ModalService.Show(modalType, $"Create", parameters, options);
+        var modal = this.ModalService.Show(modalType, $"Tạo mới", parameters, options);
         var result = await modal.Result.ConfigureAwait(false);
         if (!result.Cancelled)
         {
             await creationContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            this.ToastService.ShowSuccess("New object successfully created.");
+            this.ToastService.ShowSuccess("Đối tượng mới đã được tạo thành công.");
             this._viewModels = null;
             this._loadTask = Task.Run(() => this.LoadDataAsync(cancellationToken), cancellationToken);
         }
     }
 
     /// <summary>
-    /// The view model for the grid.
-    /// We use this instead of the objects, because it makes the code simpler.
-    /// Creating generic components is a bit complicated when you don't
-    /// have the type as generic type parameter.
+    /// Mô hình xem cho lưới.
+    /// Chúng tôi sử dụng điều này thay vì các đối tượng, vì nó làm cho mã đơn giản hơn.
+    /// Tạo các thành phần tổng quát là một chút phức tạp khi bạn không
+    /// có loại như tham số loại tổng quát.
     /// </summary>
     public class ViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ViewModel"/> class.
+        /// Khởi tạo một thể hiện mới của lớp <see cref="ViewModel"/>.
         /// </summary>
-        /// <param name="parent">The parent.</param>
+        /// <param name="parent">Đối tượng cha.</param>
         public ViewModel(object parent)
         {
             this.Parent = parent;
@@ -238,18 +238,18 @@ public partial class EditConfigGrid : ComponentBase, IAsyncDisposable
         }
 
         /// <summary>
-        /// Gets the parent object, which is displayed.
+        /// Lấy đối tượng cha, đối tượng này được hiển thị.
         /// </summary>
         [Browsable(false)]
         public object Parent { get; }
 
         /// <summary>
-        /// Gets or sets the identifier of the object.
+        /// Lấy hoặc thiết lập định danh của đối tượng.
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the object.
+        /// Lấy hoặc thiết lập tên của đối tượng.
         /// </summary>
         public string Name { get; set; }
     }

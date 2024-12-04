@@ -13,9 +13,9 @@ using MUnique.OpenMU.DataModel.Composition;
 using MUnique.OpenMU.Persistence;
 
 /// <summary>
-/// A component which shows a collection of <typeparamref name="TItem"/> in a table.
+/// Một thành phần hiển thị một tập hợp các <typeparamref name="TItem"/> trong một bảng.
 /// </summary>
-/// <typeparam name="TItem">The type of the item.</typeparam>
+/// <typeparam name="TItem">Loại của mục.</typeparam>
 public partial class ItemTable<TItem>
     where TItem : class
 {
@@ -30,13 +30,13 @@ public partial class ItemTable<TItem>
     private bool _isCollapsed;
 
     /// <summary>
-    /// Gets or sets the label.
+    /// Lấy hoặc thiết lập nhãn.
     /// </summary>
     [Parameter]
     public string Label { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the persistence context.
+    /// Lấy hoặc thiết lập ngữ cảnh lưu trữ.
     /// </summary>
     [CascadingParameter]
     public IContext PersistenceContext { get; set; } = null!;
@@ -70,7 +70,7 @@ public partial class ItemTable<TItem>
     {
         var parameters = new ModalParameters();
         parameters.Add(nameof(ModalCreateNew<TItem>.PersistenceContext), this.PersistenceContext);
-        var modal = this._modal.Show<ModalObjectSelection<TItem>>($"Select {typeof(TItem).Name}", parameters);
+        var modal = this._modal.Show<ModalObjectSelection<TItem>>($"Chọn {typeof(TItem).Name}", parameters);
         var result = await modal.Result.ConfigureAwait(false);
         if (!result.Cancelled && result.Data is TItem item)
         {
@@ -91,7 +91,7 @@ public partial class ItemTable<TItem>
             DisableBackgroundCancel = true,
         };
 
-        var modal = this._modal.Show<ModalCreateNew<TItem>>($"Create {typeof(TItem).Name}", parameters, options);
+        var modal = this._modal.Show<ModalCreateNew<TItem>>($"Tạo {typeof(TItem).Name}", parameters, options);
         var result = await modal.Result.ConfigureAwait(false);
         if (result.Cancelled)
         {

@@ -15,7 +15,7 @@
                        Values="@this.Value"
                        EnableDropDown="true"
                        ValuesChanged="@this.ValueChanged"
-                       placeholder="Search ..."
+                       placeholder="Tìm kiếm ..."
                        id="@this.FieldIdentifier.FieldName">
         <SelectedTemplate Context="item">
             @if (typeof(TObject).IsConfigurationType() && item is IIdentifiable identifiable)

@@ -6,32 +6,32 @@
 }
 else if (!this.SetupService.CanConnectToDatabase)
 {
-    <p>Database status: <span class="badge bg-danger">Can't connect to the database. Probably not created yet.</span></p>
+    <p>Trạng thái cơ sở dữ liệu: <span class="badge bg-danger">Không thể kết nối đến cơ sở dữ liệu. Có thể chưa được tạo.</span></p>
 
-    <button class="btn btn-primary" @onclick="this.OnInstallClick">Create</button>
+    <button class="btn btn-primary" @onclick="this.OnInstallClick">Tạo</button>
 }
 else if (!this.SetupService.IsInstalled)
 {
-    <p>Database status: <span class="badge bg-warning text-dark">Not created</span></p>
+    <p>Trạng thái cơ sở dữ liệu: <span class="badge bg-warning text-dark">Chưa được tạo</span></p>
 
-    <button class="btn btn-primary" @onclick="this.OnInstallClick">Create</button>
+    <button class="btn btn-primary" @onclick="this.OnInstallClick">Khởi tạo</button>
 }
 else if (this.SetupService.IsUpdateRequired)
 {
-    <p>Database status: <span class="badge bg-warning text-dark">Update required</span></p>
-    <button class="btn btn-primary" @onclick="this.OnUpdateClickAsync">Update</button>
+    <p>Trạng thái cơ sở dữ liệu: <span class="badge bg-warning text-dark">Yêu cầu cần cập nhật</span></p>
+    <button class="btn btn-primary" @onclick="this.OnUpdateClickAsync">Cập nhật</button>
 }
 else
 {
-    <p>Database status: <span class="badge bg-success">Up-to-date</span></p>
+    <p>Trạng thái cơ sở dữ liệu: <span class="badge bg-success">Đã cập nhật up-to-date.</span></p>
     @if (!this._isDataInitialized)
     {
-        <p>Initialized game version: <span class="badge bg-warning text-dark">No initialized data found!</span></p>
+        <p>Phiên bản trò chơi đã khởi tạo: <span class="badge bg-warning text-dark">Không tìm thấy dữ liệu đã khởi tạo!</span></p>
     }
     else
     {
-        <p>Initialized game version: <span class="badge bg-success">@this._gameClientVersion</span></p>
+        <p>Phiên bản trò chơi đã khởi tạo: <span class="badge bg-success">@this._gameClientVersion</span></p>
     }
 
-    <button class="btn bg-warning text-dark" @onclick="this.OnReInstallClickAsync">Re-install</button>
+    <button class="btn bg-warning text-dark" @onclick="this.OnReInstallClickAsync">Cài đặt lại</button>
 }

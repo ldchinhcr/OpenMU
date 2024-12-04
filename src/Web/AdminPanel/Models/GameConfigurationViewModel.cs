@@ -7,19 +7,19 @@ namespace MUnique.OpenMU.Web.AdminPanel.Models;
 using System.ComponentModel.DataAnnotations;
 using MUnique.OpenMU.DataModel.Entities;
 
-[Display(Name = "Game configuration")]
+[Display(Name = "Cấu hình trò chơi")]
 public class GameConfigurationViewModel
 {
     /// <summary>
     /// Gets or sets the maximum reachable level.
     /// </summary>
-    [Display(Name = "Maximum level", Description = "Defines the maximum level of a character.")]
+    [Display(Name = "Cấp độ tối đa", Description = "Xác định cấp độ tối đa của một nhân vật.")]
     public short MaximumLevel { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum reachable master level.
     /// </summary>
-    [Display(Name = "Maximum master level", Description = "Defines the maximum master level of a character.")]
+    [Display(Name = "Cấp độ bậc thầy tối đa", Description = "Xác định cấp độ Master tối đa của một nhân vật.")]
     public short MaximumMasterLevel { get; set; }
 
     /// <summary>
@@ -42,7 +42,7 @@ public class GameConfigurationViewModel
     /// Gets or sets a value indicating whether area skills hit players.
     /// </summary>
     /// <remarks>
-    /// Usually false, during castle siege this might be true.
+    /// Thường là false, trong cuộc bao vây lâu đài điều này có thể là true.
     /// </remarks>
     public bool AreaSkillHitsPlayer { get; set; }
 
