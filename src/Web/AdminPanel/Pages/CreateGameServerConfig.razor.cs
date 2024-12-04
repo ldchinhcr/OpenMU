@@ -1,5 +1,5 @@
 ﻿// <copyright file="CreateGameServerConfig.razor.cs" company="MUnique">
-// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Được cấp phép theo Giấy phép MIT. Xem tệp LICENSE trong thư mục gốc của dự án để biết thông tin cấp phép đầy đủ.
 // </copyright>
 
 using MUnique.OpenMU.Interfaces;
@@ -15,7 +15,7 @@ using MUnique.OpenMU.DataModel.Configuration;
 using MUnique.OpenMU.Persistence;
 
 /// <summary>
-/// Razor page which shows objects of the specified type in a grid.
+/// Trang Razor hiển thị các đối tượng của loại đã chỉ định trong một lưới.
 /// </summary>
 public partial class CreateGameServerConfig : ComponentBase, IAsyncDisposable
 {
@@ -26,37 +26,37 @@ public partial class CreateGameServerConfig : ComponentBase, IAsyncDisposable
     private string? _initState;
 
     /// <summary>
-    /// Gets or sets the context provider.
+    /// Lấy hoặc thiết lập nhà cung cấp ngữ cảnh.
     /// </summary>
     [Inject]
     public IPersistenceContextProvider ContextProvider { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the server initializer.
+    /// Lấy hoặc thiết lập trình khởi tạo máy chủ.
     /// </summary>
     [Inject]
     public IGameServerInstanceManager ServerInstanceManager { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the data source.
+    /// Lấy hoặc thiết lập nguồn dữ liệu.
     /// </summary>
     [Inject]
     public IDataSource<GameConfiguration> DataSource { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the modal service.
+    /// Lấy hoặc thiết lập dịch vụ modal.
     /// </summary>
     [Inject]
     public IModalService ModalService { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the toast service.
+    /// Lấy hoặc thiết lập dịch vụ thông báo.
     /// </summary>
     [Inject]
     public IToastService ToastService { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the navigation manager.
+    /// Lấy hoặc thiết lập trình quản lý điều hướng.
     /// </summary>
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
@@ -74,11 +74,11 @@ public partial class CreateGameServerConfig : ComponentBase, IAsyncDisposable
         }
         catch (OperationCanceledException)
         {
-            // we can ignore that ...
+            // chúng ta có thể bỏ qua điều đó ...
         }
         catch
         {
-            // and we should not throw exceptions in the dispose method ...
+            // và chúng ta không nên ném ngoại lệ trong phương thức dispose ...
         }
     }
 
@@ -128,7 +128,7 @@ public partial class CreateGameServerConfig : ComponentBase, IAsyncDisposable
     {
         if (this._viewModel is null)
         {
-            throw new InvalidOperationException("View model not initialized.");
+            throw new InvalidOperationException("Mô hình xem chưa được khởi tạo.");
         }
 
         var result = context.CreateNew<GameServerDefinition>();
@@ -159,87 +159,87 @@ public partial class CreateGameServerConfig : ComponentBase, IAsyncDisposable
             var existingServerDefinitions = (await saveContext.GetAsync<GameServerDefinition>().ConfigureAwait(false)).ToList();
             if (existingServerDefinitions.Any(def => def.ServerID == this._viewModel?.ServerId))
             {
-                this.ToastService.ShowError($"Server with Id {this._viewModel?.ServerId} already exists. Please use another value.");
+                this.ToastService.ShowError($"Máy chủ với Id {this._viewModel?.ServerId} đã tồn tại. Vui lòng sử dụng giá trị khác.");
                 return;
             }
 
             if (existingServerDefinitions.Any(def => def.Endpoints.Any(endpoint => endpoint.NetworkPort == this._viewModel?.NetworkPort)))
             {
-                this.ToastService.ShowError($"A server with tcp port {this._viewModel?.NetworkPort} already exists. Please use another tcp port.");
+                this.ToastService.ShowError($"Một máy chủ với cổng tcp {this._viewModel?.NetworkPort} đã tồn tại. Vui lòng sử dụng cổng tcp khác.");
                 return;
             }
 
-            this._initState = "Creating Configuration ...";
+            this._initState = "Đang tạo cấu hình ...";
             await this.InvokeAsync(this.StateHasChanged);
             var gameServerDefinition = await this.CreateDefinitionByViewModelAsync(saveContext).ConfigureAwait(false);
-            this._initState = "Saving Configuration ...";
+            this._initState = "Đang lưu cấu hình ...";
             await this.InvokeAsync(this.StateHasChanged);
             var success = await saveContext.SaveChangesAsync().ConfigureAwait(true);
 
-            // if success, init new game server instance
+            // nếu thành công, khởi tạo phiên bản máy chủ trò chơi mới
             if (success)
             {
-                this.ToastService.ShowSuccess("The game server configuration has been saved. Initializing game server ...");
-                this._initState = "Initializing Game Server ...";
+                this.ToastService.ShowSuccess("Cấu hình máy chủ trò chơi đã được lưu. Đang khởi tạo máy chủ trò chơi ...");
+                this._initState = "Đang khởi tạo máy chủ trò chơi ...";
                 await this.InvokeAsync(this.StateHasChanged);
                 await this.ServerInstanceManager.InitializeGameServerAsync(gameServerDefinition.ServerID);
                 this.NavigationManager.NavigateTo("servers");
                 return;
             }
 
-            this.ToastService.ShowError("No changes have been saved.");
+            this.ToastService.ShowError("Không có thay đổi nào đã được lưu.");
         }
         catch (Exception ex)
         {
-            this.ToastService.ShowError($"An unexpected error occurred: {ex.Message}.");
+            this.ToastService.ShowError($"Đã xảy ra lỗi không mong muốn: {ex.Message}.");
         }
 
         this._initState = null;
     }
 
     /// <summary>
-    /// The view model for a <see cref="GameServerDefinition"/>.
+    /// Mô hình xem cho một <see cref="GameServerDefinition"/>.
     /// </summary>
     public class GameServerViewModel
     {
         /// <summary>
-        /// Gets or sets the server identifier.
+        /// Lấy hoặc thiết lập định danh máy chủ.
         /// </summary>
         public byte ServerId { get; set; }
 
         /// <summary>
-        /// Gets or sets the description.
+        /// Lấy hoặc thiết lập mô tả.
         /// </summary>
         public string Description { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the experience rate.
+        /// Lấy hoặc thiết lập tỷ lệ kinh nghiệm.
         /// </summary>
         /// <value>
-        /// The experience rate.
+        /// Tỷ lệ kinh nghiệm.
         /// </value>
         [Range(0, float.MaxValue)]
         public float ExperienceRate { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether PVP is enabled on this server.
+        /// Lấy hoặc thiết lập giá trị cho biết liệu PVP có được kích hoạt trên máy chủ này hay không.
         /// </summary>
         public bool PvpEnabled { get; set; }
 
         /// <summary>
-        /// Gets or sets the server configuration.
+        /// Lấy hoặc thiết lập cấu hình máy chủ.
         /// </summary>
         [Required]
         public GameServerConfiguration? ServerConfiguration { get; set; }
 
         /// <summary>
-        /// Gets or sets the client which is expected to connect.
+        /// Lấy hoặc thiết lập khách hàng mà dự kiến sẽ kết nối.
         /// </summary>
         [Required]
         public GameClientDefinition? Client { get; set; }
 
         /// <summary>
-        /// Gets or sets the network port on which the server is listening.
+        /// Lấy hoặc thiết lập cổng mạng mà máy chủ đang lắng nghe.
         /// </summary>
         [Range(1, ushort.MaxValue)]
         public int NetworkPort { get; set; }

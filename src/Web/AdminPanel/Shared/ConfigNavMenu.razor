@@ -5,34 +5,34 @@
 
 <li class="dropdown">
     <a href="" role="button" aria-haspopup="true" aria-expanded="false" @onclick="ToggleGameConfig">
-        <span class="oi oi-cog" aria-hidden="true"></span> Game Configuration
+        <span class="oi oi-cog" aria-hidden="true"></span> Cấu Hình Trò Chơi
     </a>
     @if (this._expandGameConfig)
     {
         <div>
-            <NavLink href="@($"edit-config/{typeof(SystemConfiguration).FullName}/")">System</NavLink>
+            <NavLink href="@($"edit-config/{typeof(SystemConfiguration).FullName}/")">Hệ Thống</NavLink>
             <NavLink href="@($"edit-config-grid/{typeof(GameClientDefinition).FullName}/")">Game Clients</NavLink>
             <hr/>
-            <NavLink href="@($"edit-config/{typeof(GameConfiguration).FullName}/{this.GameConfigurationId}/hide-collections")">General</NavLink>
-            <NavLink href="@($"edit-config-grid/{typeof(MonsterDefinition).FullName}/")">Monsters</NavLink>
-            <NavLink href="@($"merchants/")">Merchant Stores</NavLink>
-            <NavLink href="@($"edit-config-grid/{typeof(CharacterClass).FullName}/")">Character Classes</NavLink>
-            <NavLink href="@($"edit-config-grid/{typeof(Skill).FullName}/")">Skills</NavLink>
-            <NavLink href="@($"edit-config-grid/{typeof(ItemDefinition).FullName}/")">Items</NavLink>
-            <NavLink href="@($"edit-config-grid/{typeof(GameMapDefinition).FullName}/")">Maps</NavLink>
-            <NavLink href="@($"edit-config-grid/{typeof(MiniGameDefinition).FullName}/")">Mini Games</NavLink>
-            <NavLink href="@($"edit-config-grid/{typeof(WarpInfo).FullName}/")">Warp List</NavLink>
-            <NavLink href="@($"edit-config-grid/{typeof(JewelMix).FullName}/")">Jewel Mixes</NavLink>
+            <NavLink href="@($"edit-config/{typeof(GameConfiguration).FullName}/{this.GameConfigurationId}/hide-collections")">Cấu hình chung</NavLink>
+            <NavLink href="@($"edit-config-grid/{typeof(MonsterDefinition).FullName}/")">Quái Vật</NavLink>
+            <NavLink href="@($"merchants/")">Cửa Hàng Thương Nhân</NavLink>
+            <NavLink href="@($"edit-config-grid/{typeof(CharacterClass).FullName}/")">Lớp Nhân Vật</NavLink>
+            <NavLink href="@($"edit-config-grid/{typeof(Skill).FullName}/")">Kỹ Năng</NavLink>
+            <NavLink href="@($"edit-config-grid/{typeof(ItemDefinition).FullName}/")">Món Đồ</NavLink>
+            <NavLink href="@($"edit-config-grid/{typeof(GameMapDefinition).FullName}/")">Bản Đồ</NavLink>
+            <NavLink href="@($"edit-config-grid/{typeof(MiniGameDefinition).FullName}/")">Trò Chơi Nhỏ</NavLink>
+            <NavLink href="@($"edit-config-grid/{typeof(WarpInfo).FullName}/")">Danh Sách Warp Dịch chuyển</NavLink>
+            <NavLink href="@($"edit-config-grid/{typeof(JewelMix).FullName}/")">Trộn Ngọc</NavLink>
             <hr/>
             <NavLink href="plugins">
-                <span class="oi oi-puzzle-piece" aria-hidden="true"></span> Plugins
+                <span class="oi oi-puzzle-piece" aria-hidden="true"></span> Tiện Ích (Plugins)
             </NavLink>
             <NavLink href="map-editor">
-                <span class="oi oi-globe" aria-hidden="true"></span> Map Editor
+                <span class="oi oi-globe" aria-hidden="true"></span> Trình Biên Tập Bản Đồ (Map)
             </NavLink>
             <hr/>
             <NavLink href="@($"edit-config/{typeof(GameConfiguration).FullName}/")" Match="NavLinkMatch.All">
-                <span class="oi oi-cog" aria-hidden="true"></span> Full Configuration
+                <span class="oi oi-cog" aria-hidden="true"></span> Cấu Hình Đầy Đủ
             </NavLink>
         </div>
     }

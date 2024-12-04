@@ -22,13 +22,13 @@
     private IObservableGameServer? _gameServer;
 
     /// <summary>
-    /// Gets or sets the server id on which the map is hosted.
+    /// Lấy hoặc thiết lập định danh máy chủ mà bản đồ được lưu trữ.
     /// </summary>
     [Inject]
     public IList<IManageableServer> Servers { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the 0-based game server id/index.
+    /// Lấy hoặc thiết lập định danh máy chủ trò chơi (0-based).
     /// </summary>
     [Parameter]
     public int GameServerId { get; set; }
@@ -43,7 +43,7 @@
     protected override async Task OnInitializedAsync()
     {
         var gameServer = this.Servers.OfType<IGameServer>().First(gs => gs.Id == this.GameServerId);
-        var context = (gameServer as IGameServerContextProvider)?.Context ?? throw new InvalidOperationException("This map page just works in an All-In-One deployment.");
+        var context = (gameServer as IGameServerContextProvider)?.Context ?? throw new InvalidOperationException("Trang bản đồ này chỉ hoạt động trong một All-In-One deployment.");
         var adapter = new ObservableGameServerAdapter(context);
         await adapter.InitializeAsync();
 

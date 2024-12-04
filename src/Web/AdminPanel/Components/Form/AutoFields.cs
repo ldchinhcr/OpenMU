@@ -1,5 +1,5 @@
 ﻿// <copyright file="AutoFields.cs" company="MUnique">
-// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Được cấp phép theo Giấy phép MIT. Xem tệp LICENSE trong thư mục gốc của dự án để biết thông tin giấy phép đầy đủ.
 // </copyright>
 
 namespace MUnique.OpenMU.Web.AdminPanel.Components.Form;
@@ -16,15 +16,15 @@ using MUnique.OpenMU.Web.AdminPanel.ComponentBuilders;
 using MUnique.OpenMU.Web.AdminPanel.Services;
 
 /// <summary>
-/// A razor component which automatically generates input fields for all properties for the type of the enclosing form model.
-/// Must be used inside a <see cref="EditForm"/>.
+/// Một thành phần razor tự động tạo các trường nhập liệu cho tất cả các thuộc tính của kiểu mô hình biểu mẫu bao quanh.
+/// Phải được sử dụng bên trong một <see cref="EditForm"/>.
 /// </summary>
 public class AutoFields : ComponentBase
 {
     private static readonly IList<IComponentBuilder> Builders = new List<IComponentBuilder>();
 
     /// <summary>
-    /// Initializes static members of the <see cref="AutoFields"/> class.
+    /// Khởi tạo các thành viên tĩnh của lớp <see cref="AutoFields"/>.
     /// </summary>
     static AutoFields()
     {
@@ -55,31 +55,31 @@ public class AutoFields : ComponentBase
     }
 
     /// <summary>
-    /// Gets or sets the context of the <see cref="EditForm"/>.
+    /// Lấy hoặc thiết lập ngữ cảnh của <see cref="EditForm"/>.
     /// </summary>
     /// <value>
-    /// The context.
+    /// Ngữ cảnh.
     /// </value>
     [CascadingParameter]
     public EditContext Context { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets a value indicating whether to hide collections or not.
+    /// Lấy hoặc thiết lập giá trị cho biết có ẩn các bộ sưu tập hay không.
     /// </summary>
     [Parameter]
     public bool HideCollections { get; set; }
 
     /// <summary>
-    /// Gets the properties which should be shown in this component.
+    /// Lấy các thuộc tính sẽ được hiển thị trong thành phần này.
     /// </summary>
-    /// <returns>The properties which should be shown in this component.</returns>
+    /// <returns>Các thuộc tính sẽ được hiển thị trong thành phần này.</returns>
     protected virtual IEnumerable<PropertyInfo> Properties
     {
         get
         {
             if (this.Context?.Model is null)
             {
-                this.Logger.LogError(this.Context is null ? "Context is null" : "Model is null");
+                this.Logger.LogError(this.Context is null ? "Ngữ cảnh là null" : "Mô hình là null");
                 return Enumerable.Empty<PropertyInfo>();
             }
 
@@ -101,7 +101,7 @@ public class AutoFields : ComponentBase
             }
             catch (Exception ex)
             {
-                this.Logger.LogError(ex, $"Error during determining properties of type {this.Context.Model.GetType()}: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
+                this.Logger.LogError(ex, $"Lỗi trong việc xác định các thuộc tính của kiểu {this.Context.Model.GetType()}: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
             }
 
             return Enumerable.Empty<PropertyInfo>();
@@ -109,10 +109,10 @@ public class AutoFields : ComponentBase
     }
 
     /// <summary>
-    /// Gets or sets the notification service.
+    /// Lấy hoặc thiết lập dịch vụ thông báo.
     /// </summary>
     /// <value>
-    /// The notification service.
+    /// Dịch vụ thông báo.
     /// </value>
     [Inject]
     private IChangeNotificationService NotificationService { get; set; } = null!;
@@ -132,13 +132,13 @@ public class AutoFields : ComponentBase
                 componentBuilder = Builders.FirstOrDefault(b => b.CanBuildComponent(propertyInfo));
                 if (componentBuilder != null)
                 {
-                    // TODO: Build something around groups (same DisplayAttribute.GroupName)
+                    // TODO: Xây dựng một cái gì đó xung quanh các nhóm (cùng DisplayAttribute.GroupName)
                     i = componentBuilder.BuildComponent(this.Context.Model, propertyInfo, builder, i, this.NotificationService);
                 }
             }
             catch (Exception ex)
             {
-                this.Logger.LogError(ex, $"Error building component for property {this.Context.Model.GetType().Name}.{propertyInfo.Name} with component builder {componentBuilder}: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
+                this.Logger.LogError(ex, $"Lỗi khi xây dựng thành phần cho thuộc tính {this.Context.Model.GetType().Name}.{propertyInfo.Name} với bộ xây dựng thành phần {componentBuilder}: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
             }
         }
     }

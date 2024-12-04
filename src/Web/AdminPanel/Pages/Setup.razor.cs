@@ -12,7 +12,7 @@ using MUnique.OpenMU.Web.AdminPanel.Components;
 using MUnique.OpenMU.Web.AdminPanel.Services;
 
 /// <summary>
-/// The set up page.
+/// Trang thiết lập.
 /// </summary>
 public partial class Setup
 {
@@ -21,18 +21,18 @@ public partial class Setup
     private ClientVersion? _gameClientVersion;
 
     /// <summary>
-    /// Gets or sets a value indicating whether to show the <see cref="Install"/> component.
+    /// Lấy hoặc thiết lập giá trị cho biết có hiển thị thành phần <see cref="Install"/> hay không.
     /// </summary>
     public bool ShowInstall { get; set; }
 
     /// <summary>
-    /// Gets or sets the setup service.
+    /// Lấy hoặc thiết lập dịch vụ thiết lập.
     /// </summary>
     [Inject]
     public SetupService SetupService { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the javascript runtime.
+    /// Lấy hoặc thiết lập runtime javascript.
     /// </summary>
     [Inject]
     public IJSRuntime JsRuntime { get; set; } = null!;
@@ -59,7 +59,7 @@ public partial class Setup
 
     private async Task OnReInstallClickAsync()
     {
-        if (await this.JsRuntime.InvokeAsync<bool>("confirm", "Are you sure? All the current data is getting deleted and freshly installed.").ConfigureAwait(false))
+        if (await this.JsRuntime.InvokeAsync<bool>("confirm", "Bạn có chắc chắn không? Tất cả dữ liệu hiện tại sẽ bị xóa và được cài đặt lại từ đầu.").ConfigureAwait(false))
         {
             this.ShowInstall = true;
         }

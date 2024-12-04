@@ -3,41 +3,41 @@
 
 @if (this.Configuration is null)
 {
-    <span>Loading ...</span>
+    <span>Đang tải ...</span>
 }
 else
 {
 <EditForm Model="@Configuration" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator/>
-    <TextField Id="descriptionInput" Label="Description" @bind-Value="@Configuration.Description"/>
+    <TextField Id="descriptionInput" Label="Mô tả" @bind-Value="@Configuration.Description"/>
     <NumberField Id="clientListenerPortInput" Label="Client listener port" @bind-Value="@Configuration.ClientListenerPort"/>
     <LookupField TObject=GameClientDefinition Label="Game Client" @bind-Value="@Configuration.GameClientDefinition"/>
     <div>
-        <label htmlFor="patchVersionInput">Patch-Version</label>
+        <label htmlFor="patchVersionInput">Phiên bản vá</label>
         <div id="patchVersionInput">
             <div>
-                <span id="major-addon">Major</span>
+                <span id="major-addon">Vá lớn</span>
             </div>
             <InputNumber id="patchVersionMajorInput" @bind-Value=@this.Configuration.CurrentVersionMajor aria-describedby="major-addon"/>
             <ValidationMessage For="@(() => this.Configuration.CurrentVersionMajor)"/>
         </div>
         <div>
             <div>
-                <span id="minor-addon">Minor</span>
+                <span id="minor-addon">Vá nhỏ</span>
             </div>
             <InputNumber id="patchVersionMinorInput" @bind-Value=@this.Configuration.CurrentVersionMinor aria-describedby="minor-addon"/>
             <ValidationMessage For="@(() => this.Configuration.CurrentVersionMinor)"/>
         </div>
         <div>
             <div>
-                <span id="patch-addon">Patch</span>
+                <span id="patch-addon">Vá linh tinh</span>
             </div>
             <InputNumber id="patchVersionPatchInput" @bind-Value=@this.Configuration.CurrentVersionPatch aria-describedby="patch-addon"/>
             <ValidationMessage For="@(() => this.Configuration.CurrentVersionPatch)"/>
         </div>
     </div>
     <div>
-        <label htmlFor="patchAddressInput">Patch-Address</label>
+        <label htmlFor="patchAddressInput">Địa chỉ vá</label>
         <div id="patchAddressInput">
             <div>
                 <span id="ftp-addon">ftp://</span>
@@ -45,10 +45,10 @@ else
             <InputText @bind-Value=@this.Configuration.PatchAddress aria-describedby="ftp-addon"/>
         </div>
     </div>
-    <BooleanField Id="disconnectOnUnknownPacketInput" Label="Disconnect on unknown packet" @bind-Value="@Configuration.DisconnectOnUnknownPacket"/>
-    <NumberField Id="maximumReceiveSizeInput" Label="Maximum packet size" @bind-Value="@Configuration.MaximumReceiveSize"/>
+    <BooleanField Id="disconnectOnUnknownPacketInput" Label="Ngắt kết nối khi nhận gói không xác định" @bind-Value="@Configuration.DisconnectOnUnknownPacket"/>
+    <NumberField Id="maximumReceiveSizeInput" Label="Kích thước gói tối đa" @bind-Value="@Configuration.MaximumReceiveSize"/>
     <div>
-        <label htmlFor="maxConnectionsPerAddressInput">Maximum connections per address</label>
+        <label htmlFor="maxConnectionsPerAddressInput">Kết nối tối đa mỗi địa chỉ</label>
         <div id="maxConnectionsPerAddressInput">
             <div>
                 <span id="connections-addon">
@@ -59,19 +59,19 @@ else
             <ValidationMessage For="@(() => this.Configuration.MaxConnectionsPerAddress)"/>
         </div>
     </div>
-    <NumberField Id="maxConnectionsInput" Label="Maximum connections" @bind-Value="@Configuration.MaxConnections"/>
-    <NumberField Id="listenerBacklogInput" Label="Listener Backlog" @bind-Value="@Configuration.ListenerBacklog"/>
-    <NumberField Id="maxFtpRequestsInput" Label="Maximum ftp requests per session" @bind-Value="@Configuration.MaxFtpRequests"/>
-    <NumberField Id="maxIpRequestsInput" Label="Maximum address requests per session" @bind-Value="@Configuration.MaxIpRequests"/>
-    <NumberField Id="maxServerListRequestsInput" Label="Maximum server list requests per session" @bind-Value="@Configuration.MaxServerListRequests"/>
-    <NumberField Id="timeoutSecondsInput" Label="Connection timeout (seconds)" @bind-Value="@Configuration.TimeoutSeconds"/>
+    <NumberField Id="maxConnectionsInput" Label="Kết nối tối đa" @bind-Value="@Configuration.MaxConnections"/>
+    <NumberField Id="listenerBacklogInput" Label="Danh sách chờ lắng nghe" @bind-Value="@Configuration.ListenerBacklog"/>
+    <NumberField Id="maxFtpRequestsInput" Label="Số yêu cầu ftp tối đa mỗi phiên" @bind-Value="@Configuration.MaxFtpRequests"/>
+    <NumberField Id="maxIpRequestsInput" Label="Số yêu cầu địa chỉ tối đa mỗi phiên" @bind-Value="@Configuration.MaxIpRequests"/>
+    <NumberField Id="maxServerListRequestsInput" Label="Số yêu cầu danh sách máy chủ tối đa mỗi phiên" @bind-Value="@Configuration.MaxServerListRequests"/>
+    <NumberField Id="timeoutSecondsInput" Label="Thời gian chờ kết nối (giây)" @bind-Value="@Configuration.TimeoutSeconds"/>
 
     <ValidationSummary/>
     <div>
-        <button type="submit" class="primary-button">Save</button>
+        <button type="submit" class="primary-button">Lưu</button>
         @if (this.OnCancel != null)
         {
-            <button type="button" onClick=@this.OnCancel>Cancel</button>
+            <button type="button" onClick=@this.OnCancel>Hủy</button>
         }
     </div>
 

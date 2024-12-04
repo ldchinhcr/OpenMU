@@ -4,20 +4,20 @@
 
 @inject PlugInController _plugInController;
 
-<h1>Plugins</h1>
+<h1>Plugin</h1>
 
 <div>
     <DataTable TItem=@PlugInConfigurationViewItem>
         <TableHeader>
-            <th class="col-1">Extension Point</th>
-            <th class="col-1">Plugin Name</th>
-            <th class="col-1">Plugin Type</th>
-            <th class="col-1">Action</th>
+            <th class="col-1">Điểm mở rộng</th>
+            <th class="col-1">Tên plugin</th>
+            <th class="col-1">Loại plugin</th>
+            <th class="col-1">Hành động</th>
         </TableHeader>
         <FilterHeader>
             <th><PlugInExtensionPointSelection SelectedPointId="@this._plugInController.PointFilter" ExtensionPoints="@this._plugInController.ExtensionPoints" OnSelectionChanged="@this.OnPlugInPointSelected" /></th>
-            <th><input type="search" placeholder="Search" @bind="@this._plugInController.NameFilter" @bind:event="oninput"/></th>
-            <th><input type="search" placeholder="Search" @bind="@this._plugInController.TypeFilter" @bind:event="oninput"/></th>
+            <th><input type="search" placeholder="Tìm kiếm" @bind="@this._plugInController.NameFilter" @bind:event="oninput"/></th>
+            <th><input type="search" placeholder="Tìm kiếm" @bind="@this._plugInController.TypeFilter" @bind:event="oninput"/></th>
             <th></th>
         </FilterHeader>
         <ItemTemplate Context="item">
@@ -31,11 +31,11 @@
             <td>
                 @if (item.IsActive)
                 {
-                    <Button class="btn-warning" @onclick="async () => await this._plugInController.DeactivateAsync(item)">Deactivate</Button>
+                    <Button class="btn-warning" @onclick="async () => await this._plugInController.DeactivateAsync(item)">Vô hiệu hóa</Button>
                 }
                 else
                 {
-                    <Button class="btn-success" @onclick="async () => await this._plugInController.ActivateAsync(item)">Activate</Button>
+                    <Button class="btn-success" @onclick="async () => await this._plugInController.ActivateAsync(item)">Kích hoạt</Button>
                 }
 
                 @if (item.ConfigurationType is { })

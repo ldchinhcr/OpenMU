@@ -117,7 +117,7 @@ public partial class CreateConnectServerConfig : ComponentBase, IAsyncDisposable
     {
         if (this._viewModel is null)
         {
-            throw new InvalidOperationException("View model not initialized.");
+            throw new InvalidOperationException("View Model chưa được khởi tạo.");
         }
 
         var result = context.CreateNew<ConnectServerDefinition>();
@@ -140,39 +140,39 @@ public partial class CreateConnectServerConfig : ComponentBase, IAsyncDisposable
             var existingServerDefinitions = (await saveContext.GetAsync<ConnectServerDefinition>().ConfigureAwait(false)).ToList();
             if (existingServerDefinitions.Any(def => def.ServerId == this._viewModel?.ServerId))
             {
-                this.ToastService.ShowError($"Server with Id {this._viewModel?.ServerId} already exists. Please use another value.");
+                this.ToastService.ShowError($"Máy chủ với Id {this._viewModel?.ServerId} đã tồn tại. Vui lòng sử dụng giá trị khác.");
                 return;
             }
 
             if (existingServerDefinitions.Any(def => def.ClientListenerPort == this._viewModel?.NetworkPort))
             {
-                this.ToastService.ShowError($"A server with tcp port {this._viewModel?.NetworkPort} already exists. Please use another tcp port.");
+                this.ToastService.ShowError($"Một máy chủ với cổng tcp {this._viewModel?.NetworkPort} đã tồn tại. Vui lòng sử dụng cổng tcp khác.");
                 return;
             }
 
-            this._initState = "Creating Configuration ...";
+            this._initState = "Đang tạo cấu hình ...";
             await this.InvokeAsync(this.StateHasChanged);
             var connectServerDefinition = await this.CreateDefinitionByViewModelAsync(saveContext).ConfigureAwait(false);
-            this._initState = "Saving Configuration ...";
+            this._initState = "Đang lưu cấu hình ...";
             await this.InvokeAsync(this.StateHasChanged);
             var success = await saveContext.SaveChangesAsync().ConfigureAwait(true);
 
             // if success, init new game server instance
             if (success)
             {
-                this.ToastService.ShowSuccess("The connection server configuration has been saved. Initializing connect server ...");
-                this._initState = "Initializing Connect Server ...";
+                this.ToastService.ShowSuccess("Cấu hình máy chủ kết nối đã được lưu. Đang khởi tạo máy chủ kết nối ...");
+                this._initState = "Đang khởi tạo máy chủ kết nối ...";
                 await this.InvokeAsync(this.StateHasChanged);
                 await this.ServerInstanceManager.InitializeConnectServerAsync(connectServerDefinition.ConfigurationId);
                 this.NavigationManager.NavigateTo("servers");
                 return;
             }
 
-            this.ToastService.ShowError("No changes have been saved.");
+            this.ToastService.ShowError("Không có thay đổi nào đã được lưu.");
         }
         catch (Exception ex)
         {
-            this.ToastService.ShowError($"An unexpected error occurred: {ex.Message}.");
+            this.ToastService.ShowError($"Đã xảy ra lỗi không mong muốn: {ex.Message}.");
         }
 
         this._initState = null;

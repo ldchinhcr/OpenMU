@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 /// <summary>
-/// A dropdown selection component for enum values of <typeparamref name="TValue" />.
+/// Một thành phần chọn dropdown cho các giá trị enum của <typeparamref name="TValue" />.
 /// </summary>
-/// <typeparam name="TValue">The type of the enum.</typeparam>
+/// <typeparam name="TValue">Loại của enum.</typeparam>
 public class EnumSelect<TValue> : NotifyableInputBase<TValue>
 {
     /// <inheritdoc />
@@ -51,7 +51,7 @@ public class EnumSelect<TValue> : NotifyableInputBase<TValue>
     {
         if (!typeof(TValue).IsEnum)
         {
-            throw new InvalidOperationException($"{this.GetType()} does not support the type '{typeof(TValue)}'.");
+            throw new InvalidOperationException($"{this.GetType()} không hỗ trợ loại '{typeof(TValue)}'.");
         }
 
         if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.CurrentCulture, out var parsedValue))
@@ -62,7 +62,7 @@ public class EnumSelect<TValue> : NotifyableInputBase<TValue>
         }
 
         result = default;
-        validationErrorMessage = $"The {this.FieldIdentifier.FieldName} field is not valid.";
+        validationErrorMessage = $"Trường {this.FieldIdentifier.FieldName} không hợp lệ.";
         return false;
     }
 }

@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
 
 /// <summary>
-/// Lookup field which allows to select multiple objects which will be stored in a bound <see cref="IList{TObject}"/>.
+/// Trường tìm kiếm cho phép chọn nhiều đối tượng sẽ được lưu trữ trong một <see cref="IList{TObject}"/> đã liên kết.
 /// </summary>
 public partial class FlagsEnumField<TValue> : NotifyableInputBase<TValue>
     where TValue : struct, Enum
@@ -16,13 +16,13 @@ public partial class FlagsEnumField<TValue> : NotifyableInputBase<TValue>
     private static readonly TValue[] PossibleFlags = Enum.GetValues(typeof(TValue)).OfType<TValue>().Where(v => !default(TValue).HasFlag(v)).OrderBy(v => v.ToString()).ToArray();
 
     /// <summary>
-    /// Gets or sets the label which should be displayed. If it's not explicitly provided, the component shows the
-    /// Name defined in the <see cref="DisplayAttribute"/>. If there is no Name in a <see cref="DisplayAttribute"/>, it shows the property name instead.
+    /// Lấy hoặc thiết lập nhãn sẽ được hiển thị. Nếu không được cung cấp rõ ràng, thành phần sẽ hiển thị
+    /// Tên được định nghĩa trong <see cref="DisplayAttribute"/>. Nếu không có Tên trong <see cref="DisplayAttribute"/>, nó sẽ hiển thị tên thuộc tính thay thế.
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
 
-    private string Placeholder => this.UnassignedFlags.Any() ? "Add ..." : "No more available";
+    private string Placeholder => this.UnassignedFlags.Any() ? "Thêm ..." : "Không còn available nào nữa";
 
     private IEnumerable<TValue> UnassignedFlags => PossibleFlags.Where(f => !this.Value.HasFlag(f));
 
@@ -41,10 +41,10 @@ public partial class FlagsEnumField<TValue> : NotifyableInputBase<TValue>
     }
 
     /// <summary>
-    /// Called when the selected flags changed.
-    /// Combines the flags into one value of this component.
+    /// Được gọi khi các cờ đã chọn thay đổi.
+    /// Kết hợp các cờ thành một giá trị của thành phần này.
     /// </summary>
-    /// <param name="flags">The selected flags.</param>
+    /// <param name="flags">Các cờ đã chọn.</param>
     private async Task OnValueChangedAsync(IList<TValue> flags)
     {
         if (flags.Count == 0)
@@ -59,10 +59,10 @@ public partial class FlagsEnumField<TValue> : NotifyableInputBase<TValue>
     }
 
     /// <summary>
-    /// Searches for the available flags, which are not assigned yet to the value.
+    /// Tìm kiếm các cờ có sẵn, chưa được gán cho giá trị.
     /// </summary>
-    /// <param name="text">The search text.</param>
-    /// <returns>The available flags.</returns>
+    /// <param name="text">Văn bản tìm kiếm.</param>
+    /// <returns>Các cờ có sẵn.</returns>
     private async Task<IEnumerable<TValue>> SearchAsync(string text)
     {
         return this.UnassignedFlags.Where(f => f.ToString().Contains(text, StringComparison.InvariantCultureIgnoreCase));

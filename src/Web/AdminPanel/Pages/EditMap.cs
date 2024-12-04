@@ -19,7 +19,7 @@ using MUnique.OpenMU.Web.AdminPanel;
 using MUnique.OpenMU.Web.AdminPanel.Components;
 
 /// <summary>
-/// A page, which shows an <see cref="MapEditor"/> for all <see cref="GameConfiguration.Maps"/>.
+/// Một trang, hiển thị <see cref="MapEditor"/> cho tất cả <see cref="GameConfiguration.Maps"/>.
 /// </summary>
 [Route("/map-editor")]
 [Route("/map-editor/{SelectedMapId:guid}")]
@@ -31,25 +31,25 @@ public sealed class EditMap : ComponentBase, IDisposable
     private IDisposable? _navigationLockDisposable;
 
     /// <summary>
-    /// Gets or sets the selected map identifier.
+    /// Lấy hoặc thiết lập định danh bản đồ đã chọn.
     /// </summary>
     [Parameter]
     public Guid SelectedMapId { get; set; }
 
     /// <summary>
-    /// Gets or sets the modal service.
+    /// Lấy hoặc thiết lập dịch vụ modal.
     /// </summary>
     [Inject]
     private IModalService ModalService { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the toast service.
+    /// Lấy hoặc thiết lập dịch vụ thông báo.
     /// </summary>
     [Inject]
     private IToastService ToastService { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the game configuration.
+    /// Lấy hoặc thiết lập cấu hình trò chơi.
     /// </summary>
     [Inject]
     private IDataSource<GameConfiguration> GameConfigurationSource { get; set; } = null!;
@@ -58,13 +58,13 @@ public sealed class EditMap : ComponentBase, IDisposable
     private ILogger<EditMap> Logger { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the navigation manager.
+    /// Lấy hoặc thiết lập trình quản lý điều hướng.
     /// </summary>
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the java script runtime.
+    /// Lấy hoặc thiết lập runtime java script.
     /// </summary>
     [Inject]
     public IJSRuntime JavaScript { get; set; } = null!;
@@ -162,7 +162,7 @@ public sealed class EditMap : ComponentBase, IDisposable
         var isConfirmed = await this.JavaScript.InvokeAsync<bool>(
                 "window.confirm",
                 cancellationToken,
-                "There are unsaved changes. Are you sure you want to discard them?")
+                "Có thay đổi chưa được lưu. Bạn có chắc chắn muốn bỏ qua chúng không?")
             .ConfigureAwait(true);
 
         if (!isConfirmed)
@@ -173,7 +173,7 @@ public sealed class EditMap : ComponentBase, IDisposable
         await this.GameConfigurationSource.DiscardChangesAsync().ConfigureAwait(true);
         this._maps = null;
 
-        // OnAfterRender will load the maps again ...
+        // OnAfterRender sẽ tải lại các bản đồ ...
         return true;
     }
 
@@ -193,8 +193,8 @@ public sealed class EditMap : ComponentBase, IDisposable
                 }
                 catch (Exception ex)
                 {
-                    this.Logger.LogError(ex, $"Could not load game maps: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
-                    await this.ModalService.ShowMessageAsync("Error", "Could not load the map data. Check the logs for details.").ConfigureAwait(false);
+                    this.Logger.LogError(ex, $"Không thể tải các bản đồ trò chơi: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
+                    await this.ModalService.ShowMessageAsync("Lỗi", "Không thể tải dữ liệu bản đồ. Kiểm tra nhật ký để biết chi tiết.").ConfigureAwait(false);
                 }
 
                 await showModalTask.ConfigureAwait(false);
@@ -204,13 +204,13 @@ public sealed class EditMap : ComponentBase, IDisposable
         }
         catch (TargetInvocationException ex) when (ex.InnerException is ObjectDisposedException)
         {
-            // See ObjectDisposedException.
+            // Xem ObjectDisposedException.
         }
         catch (ObjectDisposedException)
         {
-            // Happens when the user navigated away (shouldn't happen with the modal loading indicator, but we check it anyway).
-            // It would be great to have an async api with cancellation token support in the persistence layer
-            // For the moment, we swallow the exception
+            // Xảy ra khi người dùng điều hướng đi nơi khác (không nên xảy ra với chỉ báo tải modal, nhưng chúng tôi kiểm tra nó để đảm bảo).
+            // Sẽ thật tuyệt nếu có một api async với hỗ trợ token hủy trong lớp lưu trữ
+            // Hiện tại, chúng tôi sẽ bỏ qua ngoại lệ
         }
     }
 
@@ -220,13 +220,13 @@ public sealed class EditMap : ComponentBase, IDisposable
         {
             var context = await this.GameConfigurationSource.GetContextAsync().ConfigureAwait(true);
             var success = await context.SaveChangesAsync().ConfigureAwait(true);
-            var text = success ? "The changes have been saved." : "There were no changes to save.";
+            var text = success ? "Các thay đổi đã được lưu." : "Không có thay đổi nào để lưu.";
             this.ToastService.ShowSuccess(text);
         }
         catch (Exception ex)
         {
-            this.Logger.LogError(ex, $"Error during saving");
-            this.ToastService.ShowError($"An unexpected error occured: {ex.Message}. See logs for more details.");
+            this.Logger.LogError(ex, $"Lỗi trong quá trình lưu");
+            this.ToastService.ShowError($"Đã xảy ra lỗi không mong muốn: {ex.Message}. Xem nhật ký để biết thêm chi tiết.");
         }
     }
 }

@@ -17,7 +17,7 @@ using MUnique.OpenMU.DataModel.Entities;
 using MUnique.OpenMU.Persistence;
 
 /// <summary>
-/// Razor page which shows objects of the specified type in a grid.
+/// Trang Razor hiển thị các đối tượng của loại đã chỉ định trong một lưới.
 /// </summary>
 public partial class Merchants : ComponentBase, IAsyncDisposable
 {
@@ -32,37 +32,37 @@ public partial class Merchants : ComponentBase, IAsyncDisposable
     private IDisposable? _navigationLockDisposable;
 
     /// <summary>
-    /// Gets or sets the data source.
+    /// Lấy hoặc thiết lập nguồn dữ liệu.
     /// </summary>
     [Inject]
     public IDataSource<GameConfiguration> DataSource { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the context provider.
+    /// Lấy hoặc thiết lập nhà cung cấp ngữ cảnh.
     /// </summary>
     [Inject]
     public IPersistenceContextProvider ContextProvider { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the toast service.
+    /// Lấy hoặc thiết lập dịch vụ thông báo.
     /// </summary>
     [Inject]
     public IToastService ToastService { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the navigation manager.
+    /// Lấy hoặc thiết lập quản lý điều hướng.
     /// </summary>
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the java script runtime.
+    /// Lấy hoặc thiết lập thời gian chạy java script.
     /// </summary>
     [Inject]
     public IJSRuntime JavaScript { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the logger.
+    /// Lấy hoặc thiết lập logger.
     /// </summary>
     [Inject]
     public ILogger<Merchants> Logger { get; set; } = null!;
@@ -85,11 +85,11 @@ public partial class Merchants : ComponentBase, IAsyncDisposable
         }
         catch (OperationCanceledException)
         {
-            // we can ignore that ...
+            // chúng ta có thể bỏ qua điều đó ...
         }
         catch
         {
-            // and we should not throw exceptions in the dispose method ...
+            // và chúng ta không nên ném ngoại lệ trong phương thức dispose ...
         }
     }
 
@@ -118,7 +118,7 @@ public partial class Merchants : ComponentBase, IAsyncDisposable
 
         var isConfirmed = await this.JavaScript.InvokeAsync<bool>(
                 "window.confirm",
-                "There are unsaved changes. Are you sure you want to discard them?")
+                "Có thay đổi chưa được lưu. Bạn có chắc chắn muốn bỏ qua chúng không?")
             .ConfigureAwait(true);
 
         if (!isConfirmed)
@@ -161,18 +161,18 @@ public partial class Merchants : ComponentBase, IAsyncDisposable
             if (this._persistenceContext is { } context)
             {
                 var success = await context.SaveChangesAsync().ConfigureAwait(true);
-                var text = success ? "The changes have been saved." : "There were no changes to save.";
+                var text = success ? "Các thay đổi đã được lưu." : "Không có thay đổi nào để lưu.";
                 this.ToastService.ShowSuccess(text);
             }
             else
             {
-                this.ToastService.ShowError("Failed, context not initialized.");
+                this.ToastService.ShowError("Thất bại, ngữ cảnh chưa được khởi tạo.");
             }
         }
         catch (Exception ex)
         {
-            this.Logger.LogError(ex, $"An unexpected error occurred on save: {ex.Message}");
-            this.ToastService.ShowError($"An unexpected error occurred: {ex.Message}");
+            this.Logger.LogError(ex, $"Đã xảy ra lỗi không mong muốn khi lưu: {ex.Message}");
+            this.ToastService.ShowError($"Đã xảy ra lỗi không mong muốn: {ex.Message}");
         }
     }
 
@@ -191,7 +191,7 @@ public partial class Merchants : ComponentBase, IAsyncDisposable
         {
             var isConfirmed = await this.JavaScript.InvokeAsync<bool>(
                     "window.confirm",
-                    "There are unsaved changes. Are you sure you want to discard them?")
+                    "Có thay đổi chưa được lưu. Bạn có chắc chắn muốn bỏ qua chúng không?")
                 .ConfigureAwait(true);
 
             if (!isConfirmed)
@@ -206,14 +206,14 @@ public partial class Merchants : ComponentBase, IAsyncDisposable
     }
 
     /// <summary>
-    /// The view model for a merchant store.
+    /// Mô hình xem cho một cửa hàng thương nhân.
     /// </summary>
     public class MerchantStorageViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MerchantStorageViewModel"/> class.
+        /// Khởi tạo một thể hiện mới của lớp <see cref="MerchantStorageViewModel"/>.
         /// </summary>
-        /// <param name="merchant">The merchant.</param>
+        /// <param name="merchant">Thương nhân.</param>
         public MerchantStorageViewModel(MonsterDefinition merchant)
         {
             this.Merchant = merchant;
@@ -221,25 +221,25 @@ public partial class Merchants : ComponentBase, IAsyncDisposable
         }
 
         /// <summary>
-        /// Gets the identifier.
+        /// Lấy định danh.
         /// </summary>
         [Browsable(false)]
         public Guid Id { get; }
 
         /// <summary>
-        /// Gets the merchant definition.
+        /// Lấy định nghĩa thương nhân.
         /// </summary>
         [Browsable(false)]
         public MonsterDefinition Merchant { get; }
 
         /// <summary>
-        /// Gets the name of the merchant.
+        /// Lấy tên của thương nhân.
         /// </summary>
         [Browsable(false)]
         public string Name => this.Merchant.Designation;
 
         /// <summary>
-        /// Gets the items of the merchant.
+        /// Lấy các mặt hàng của thương nhân.
         /// </summary>
         public ICollection<Item> Items => this.Merchant.MerchantStore!.Items;
     }

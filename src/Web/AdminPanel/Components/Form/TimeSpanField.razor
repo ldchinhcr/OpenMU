@@ -10,8 +10,8 @@
                class="@CssClass"
                onchange="@this.OnValueChange"
                pattern="^[0-9]+$" min="0"
-               title="@this.FieldIdentifier.FieldName in milliseconds"
-               alt="@this.FieldIdentifier.FieldName in milliseconds" />
+               title="@this.FieldIdentifier.FieldName trong mili giây"
+               alt="@this.FieldIdentifier.FieldName trong mili giây" />
         <ValidationMessage For=@this.ValueExpression />
     </div>
 
@@ -33,7 +33,7 @@
             return true;
         }
 
-        validationErrorMessage = "Wrong Format";
+        validationErrorMessage = "Định dạng không đúng";
         return false;
     }
 

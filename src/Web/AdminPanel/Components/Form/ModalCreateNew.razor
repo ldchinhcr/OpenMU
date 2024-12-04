@@ -21,27 +21,27 @@ else
             <CreationAutoFields/>
             <ValidationSummary/>
         </CascadingValue>
-        <button type="submit" @onclick="@SubmitAsync" class="primary-button">Submit</button>
-        <button type="button" @onclick="@CancelAsync" class="cancel-button">Cancel</button>
+        <button type="submit" @onclick="@SubmitAsync" class="primary-button">Gửi</button>
+        <button type="button" @onclick="@CancelAsync" class="cancel-button">Hủy</button>
     </EditForm>
 }
 
 @code {
 
     /// <summary>
-    /// Gets or sets the modal instance.
+    /// Lấy hoặc thiết lập thể hiện modal.
     /// </summary>
     [CascadingParameter]
     BlazoredModalInstance BlazoredModal { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the item which should be created.
+    /// Lấy hoặc thiết lập mục cần được tạo.
     /// </summary>
     [Parameter]
     public TItem Item { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the persistence context which should be used. It's required for lookups.
+    /// Lấy hoặc thiết lập ngữ cảnh lưu trữ sẽ được sử dụng. Nó cần thiết cho việc tra cứu.
     /// </summary>
     [Parameter]
     public IContext PersistenceContext { get; set; } = null!;

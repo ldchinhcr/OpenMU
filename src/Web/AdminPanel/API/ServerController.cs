@@ -9,7 +9,7 @@
     using System.Text.Json;
 
     /// <summary>
-    /// Server API controller
+    /// Bộ điều khiển API máy chủ
     /// </summary>
     [Route("api/")]
     public class ServerController : Controller
@@ -35,16 +35,16 @@
             if (server is not null)
             {
                 await server.Context.SendGlobalNotificationAsync(msg).ConfigureAwait(false);
-                return Ok("Done");
+                return Ok("Hoàn thành");
             }
-            return Ok("Server not ready");
+            return Ok("Máy chủ chưa sẵn sàng");
         }
 
         /// <summary>
-        /// Gets a flag, if the specified account is currently online.
+        /// Lấy cờ, nếu tài khoản được chỉ định hiện đang trực tuyến.
         /// </summary>
-        /// <param name="accountName">Name of the account.</param>
-        /// <returns>True, when online.</returns>
+        /// <param name="accountName">Tên của tài khoản.</param>
+        /// <returns>True, khi trực tuyến.</returns>
         [HttpGet]
         [Route("is-online/{accountName=0}")]
         public async Task<bool> GetIsOnlineAsync(string accountName)
@@ -90,7 +90,7 @@
 
             var item = new
             {
-                state = "Online",
+                state = "Trực tuyến",
                 players = sum,
                 playersList = list
             };
